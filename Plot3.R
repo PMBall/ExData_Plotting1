@@ -1,0 +1,10 @@
+db<-read.table("household_power_consumption.txt",header=TRUE,sep=";",na.strings = "?")
+dbs<-subset(db,as.Date(Date, "%d/%m/%Y")==as.Date("2007-02-01") |as.Date(Date, "%d/%m/%Y")==as.Date("2007-02-02"))
+par(mfrow=c(1,1))
+plot(strptime(paste(dbs[,1],dbs[,2]), format= "%d/%m/%Y %H:%M:%S"),dbs$Sub_metering_1,type="l",xlab="",ylab = "Energy sub metering")
+lines(strptime(paste(dbs[,1],dbs[,2]), format= "%d/%m/%Y %H:%M:%S"),dbs$Sub_metering_2,col="red")
+lines(strptime(paste(dbs[,1],dbs[,2]), format= "%d/%m/%Y %H:%M:%S"),dbs$Sub_metering_3,col="blue")
+legend("topright",col=c("black","red","blue"),legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),lwd=c(2,2,2))
+
+dev.copy(png,filename = "Plot3.png", width = 480, height = 480, units = "px")
+dev.off()
